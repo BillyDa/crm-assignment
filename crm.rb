@@ -37,37 +37,79 @@ class CRM
 
   def add_new_contact
     print "Enter First Name: "
-    first_name = gets.chomp
+    first_name = gets.chomp.downcase
 
     print "Enter Last Name: "
     last_name = gets.chomp
 
     print "Enter Email Address: "
-    email = gets.chomp
+    email = gets.chomp.downcase
 
     print "Enter a Note: "
-    note = gets.chomp
+    note = gets.chomp.downcase
+    p first_name, note
 
-    Contact.create(first_name, last_name, email, note)
+    contact = Contact.create(first_name, last_name, email, note)
+
+    # contact.save
+    # puts "\e[H\e[2J"
   end
 
   def modify_existing_contact
+    p "Enter the first name of the contact you're updating: "
+    name = gets.chomp.downcase
 
+    p "What would you like to change? "
+    attribute = gets.chomp.downcase
+
+    p "Please enter the new value: "
+    value = gets.chomp.downcase
+
+    contact = Contact.find_by("first_name" => name)
+    contact.update(attribute => value)
+
+    # puts "\e[H\e[2J"
+
+    p contact
   end
 
   def delete_contact
+    print "Please enter the first name of the contact you wish to delete: "
+    name =  gets.chomp.downcase
+    contact = Contact.find_by('first_name' => name)
+    contact.delete
 
+    # puts "\e[H\e[2J"
   end
 
   def display_all_contacts
-
+    # puts "\e[H\e[2J"
+    p Contact.all
   end
 
   def search_by_attribute
+    print "Enter the attribute you would like to search under: "
+    attribute = gets.chomp.downcase
 
+    print "Enter the value of the selected attribute: "
+    value = gets.chomp.downcase
+
+    contact = Contact.find_by(attribute => value)
+    # puts "\e[H\e[2J"
+    p contact
   end
 
 
 end
 
-p CRM.new("Billy")
+crm1 = CRM.new("Bill's customer relationship")
+crm1.main_menu
+
+
+
+
+
+
+# at_exit do
+#   ActiveRecord::Base.connection.close
+# end
