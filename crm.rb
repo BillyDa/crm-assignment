@@ -51,8 +51,7 @@ class CRM
 
     contact = Contact.create(first_name, last_name, email, note)
 
-    # contact.save
-    # puts "\e[H\e[2J"
+    puts "\e[H\e[2J"
   end
 
   def modify_existing_contact
@@ -68,7 +67,7 @@ class CRM
     contact = Contact.find_by("first_name" => name)
     contact.update(attribute => value)
 
-    # puts "\e[H\e[2J"
+    puts "\e[H\e[2J"
 
     p contact
   end
@@ -79,11 +78,11 @@ class CRM
     contact = Contact.find_by('first_name' => name)
     contact.delete
 
-    # puts "\e[H\e[2J"
+    puts "\e[H\e[2J"
   end
 
   def display_all_contacts
-    # puts "\e[H\e[2J"
+    puts "\e[H\e[2J"
     p Contact.all
   end
 
@@ -95,7 +94,7 @@ class CRM
     value = gets.chomp.downcase
 
     contact = Contact.find_by(attribute => value)
-    # puts "\e[H\e[2J"
+    puts "\e[H\e[2J"
     p contact
   end
 
@@ -107,9 +106,6 @@ crm1.main_menu
 
 
 
-
-
-
-# at_exit do
-#   ActiveRecord::Base.connection.close
-# end
+at_exit do
+  ActiveRecord::Base.connection.close
+end
